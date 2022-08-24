@@ -1,0 +1,115 @@
+<div class="wrapper">
+  <div class="page-header">
+      <div class="search-bar">
+         <!-- <div class="search">
+                    <button type="submit" class="btn btn-primary" (click)="onSearch()">Search</button>
+                    <input
+                      type="text"
+                      [(ngModel)]="term"
+                      class="searchTerm"
+                      placeholder="What are you looking for?"
+                    />
+                    <span class="icon-search"></span>
+                  </div> -->
+                  <h1 class="presentation-title">HerBrandHome.Com</h1>
+                  <div class="search">
+                 <form>
+                        <input class="searchTerm" type="text" name="searchTerm"
+                        placeholder="Filter by country name"
+                        autofocus
+                        [(ngModel)]="searchTerm" (input)="onSearch(searchTerm)" />
+                        <i class="youtube_searched_for"></i>
+                      </form>
+                    </div>
+                </div>
+              </div>
+          <div class="table-search">
+
+
+            <div *ngIf="isLoggedIn">Connected Session</div>
+            <ng-template #!isLoggedIn>
+
+              <div>
+                Dear User,please <a routerLink="/login">Login</a>
+               </div>
+              </ng-template>
+            <ng-template #isLoggedIn>
+
+                </ng-template>
+
+
+
+                  <!-- <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Area</th>
+                        <th scope="col">Population</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr *ngFor="let country of countries | filter: term">
+                        <td>
+                          <img
+                            [src]="
+                              'https://upload.wikimedia.org/wikipedia/commons/' + country.flag
+                            "
+                            class="mr-2"
+                            style="width: 20px"
+                          />
+                          {{ country.name }}
+                        </td>
+                        <td>{{ country.area | number }}</td>
+                        <td>{{ country.population | number }}</td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+                    <table class="table table-striped" *ngIf="searchTerm">
+                    <thead>
+                       <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Area</th>
+                        <th scope="col">Population</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let country of countries | searchFilter: searchTerm; index as i">
+                        <td scope="row">{{ i + 1 }}</td>
+                        <td>
+                          <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
+                          {{ country.name }}
+                        </td>
+                        <td>{{ country.area | number }}</td>
+                        <td>{{ country.population | number }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                 <br/><br/><br/><br/>
+              <h2 class="presentation-subtitle text-center">Daily Statistic & Tasks</h2>
+              <p>You probably wonder how there'is no task manager here? right You maybe want to try this github project with Vuejs :<a href="https://github.com/nouha18">Github</a></p>
+
+              <div class="charts">
+                <canvas
+             baseChart
+             [data]="salesData"
+             [type]="'bar'"
+             [options]="chartOptions"
+          >
+          </canvas>
+          <br/>
+          <canvas
+          baseChart
+          [data]="TasksData"
+          [type]="'line'"
+          [options]="chartOptions"
+          >
+          </canvas>
+              </div>
+
+              </div>
+
+
+
+</div>
